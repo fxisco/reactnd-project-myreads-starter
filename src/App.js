@@ -8,7 +8,14 @@ import './App.css'
 
 class BooksApp extends React.Component {
     state = {
+        books: [],
         filter: ''
+    }
+
+    componentDidMount() {
+        BooksAPI.getAll().then((books) => {
+            this.setState({ books });
+        })
     }
 
     handleFilterChange(filter) {
@@ -18,12 +25,14 @@ class BooksApp extends React.Component {
     }
 
     render() {
-        const { filter } = this.state;
+        const { books, filter } = this.state;
 
         return (
             <div className="app">
                 <Route exact path="/" render={() => (
-                    <BooksCatalog />
+                    <BooksCatalog
+                        books={books}
+                    />
                 )} />
                 <Route exact path="/search" render={() => (
                     <BooksSearch
