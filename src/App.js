@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
-import Book from './Book'
 import BooksCatalog from './BooksCatalog'
 import BooksSearch from './BooksSearch'
 import './App.css'
@@ -9,6 +8,7 @@ import './App.css'
 class BooksApp extends React.Component {
     state = {
         books: [],
+        filteredBooks: [],
         filter: ''
     }
 
@@ -19,13 +19,29 @@ class BooksApp extends React.Component {
     }
 
     handleFilterChange(filter) {
-        this.setState({
-            filter
-        });
+        if (filter) {
+            BooksAPI.search(filter).then((books) => {
+                const filteredBooks = books.error ? [] : books;
+
+                this.setState({
+                    filteredBooks
+                });
+            })
+
+            this.setState({
+                filter
+            });
+        } else {
+            this.setState({
+                filter,
+                filteredBooks: []
+            });
+        }
+
     }
 
     render() {
-        const { books, filter } = this.state;
+        const { books, filter, filteredBooks } = this.state;
 
         return (
             <div className="app">
@@ -37,6 +53,7 @@ class BooksApp extends React.Component {
                 <Route exact path="/search" render={() => (
                     <BooksSearch
                         filter={filter}
+                        books={filteredBooks}
                         onFilterChange={(event) => this.handleFilterChange(event.target.value)}
                     />
                 )} />

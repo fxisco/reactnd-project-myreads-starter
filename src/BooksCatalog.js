@@ -61,11 +61,13 @@ const BooksCatalog = ({ books }) => {
                                         return book.shelf === "read"
                                     })
                                     .map((book) => {
+                                        const imageUrl = book.imageLinks ? book.imageLinks.thumbnail : '';
+
                                         return (
                                             <Book
                                                 key={book.id}
                                                 authors={book.authors}
-                                                imageUrl={book.imageLinks.thumbnail}
+                                                imageUrl={imageUrl}
                                                 title={book.title}
                                             />
                                         )
