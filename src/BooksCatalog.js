@@ -7,7 +7,7 @@ import {
     WANT_TO_READ
 } from './constants/values'
 
-const BooksCatalog = ({ books }) => {
+const BooksCatalog = ({ books, onShelfChange }) => {
     return (
         <div className="list-books">
             <div className="list-books-title">
@@ -22,6 +22,7 @@ const BooksCatalog = ({ books }) => {
                                 customClass={"books-grid"}
                                 books={books}
                                 type={CURRENTLY_READING}
+                                onShelfChange={onShelfChange}
                             />
                         </div>
                     </div>
@@ -32,6 +33,7 @@ const BooksCatalog = ({ books }) => {
                                 customClass={"books-grid"}
                                 books={books}
                                 type={WANT_TO_READ}
+                                onShelfChange={onShelfChange}
                             />
                         </div>
                     </div>
@@ -42,6 +44,7 @@ const BooksCatalog = ({ books }) => {
                                 customClass={"books-grid"}
                                 books={books}
                                 type={READ}
+                                onShelfChange={onShelfChange}
                             />
                       </div>
                     </div>

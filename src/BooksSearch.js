@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
-import BookList from './BookList'
 
 const BooksSearch = ({ books, filter, onFilterChange }) => {
     return (
@@ -13,10 +12,20 @@ const BooksSearch = ({ books, filter, onFilterChange }) => {
                 </div>
             </div>
             <div className="search-books-results">
-                <BookList 
-                    customClass="books-grid"
-                    books={books}
-                />
+                <ol className="books-grid">
+                    {books.map((book) => {
+                        const imageUrl = book.imageLinks ? book.imageLinks.thumbnail : '';
+
+                        return (
+                            <Book
+                                key={book.id}
+                                authors={book.authors}
+                                imageUrl={imageUrl}
+                                title={book.title}
+                            />
+                        )
+                    })}
+                </ol>
             </div>
         </div>
     );

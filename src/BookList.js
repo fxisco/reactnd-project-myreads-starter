@@ -1,7 +1,7 @@
 import React from 'react'
 import Book from './Book'
 
-const BookList = ({ books, customClass = '', type}) => {
+const BookList = ({ books, customClass = '', onShelfChange, type}) => {
     const booksToShow = type ? books.filter((book) => {return book.shelf === type}) : books;
 
     return (
@@ -16,6 +16,7 @@ const BookList = ({ books, customClass = '', type}) => {
                             imageUrl={imageUrl}
                             title={book.title}
                             shelf={book.shelf}
+                            onShelfChange={(event) => onShelfChange(book.id, event.target.value)}
                         />
                     )
                 })

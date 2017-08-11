@@ -6,6 +6,12 @@ import BooksSearch from './BooksSearch'
 import './App.css'
 
 class BooksApp extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.handleShelfChange = this.handleShelfChange.bind(this);
+    }
+
     state = {
         books: [],
         filteredBooks: [],
@@ -39,7 +45,25 @@ class BooksApp extends React.Component {
                 filteredBooks: []
             });
         }
+    }
 
+    handleShelfChange(id, value) {
+        BooksAPI.update({ id: id }, value)
+            .then((response) => {
+                const { books } = this.state;
+                const bookIndex = books.findIndex((book) => { return book.id === id; });
+
+                this.setState({
+                    books: [
+                        ...books.slice(0, bookIndex),
+                        {
+                            ...books[bookIndex],
+                            shelf: value
+                        },
+                        ...books.slice(bookIndex + 1)
+                    ]
+                })
+            });
     }
 
     render() {
@@ -50,6 +74,7 @@ class BooksApp extends React.Component {
                 <Route exact path="/" render={() => (
                     <BooksCatalog
                         books={books}
+                        onShelfChange={this.handleShelfChange}
                     />
                 )} />
                 <Route exact path="/search" render={() => (
