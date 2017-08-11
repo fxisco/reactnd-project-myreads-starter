@@ -19,21 +19,23 @@ class BooksApp extends React.Component {
     }
 
     handleFilterChange(filter) {
+        this.setState({
+            filter
+        });
+
         if (filter) {
             BooksAPI.search(filter).then((books) => {
                 const filteredBooks = books.error ? [] : books;
 
-                this.setState({
-                    filteredBooks
-                });
+                if (this.state.filter) {
+                    this.setState({
+                        filteredBooks
+                    });
+                }
             })
 
-            this.setState({
-                filter
-            });
         } else {
             this.setState({
-                filter,
                 filteredBooks: []
             });
         }
