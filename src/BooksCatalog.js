@@ -1,6 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Book from './Book'
+import BookList from './BookList'
+import {
+    CURRENTLY_READING,
+    READ,
+    WANT_TO_READ
+} from './constants/values'
 
 const BooksCatalog = ({ books }) => {
     return (
@@ -13,66 +18,31 @@ const BooksCatalog = ({ books }) => {
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Currently Reading</h2>
                         <div className="bookshelf-books">
-                            <ol className="books-grid">
-                                {books
-                                    .filter((book) => {
-                                        return book.shelf === "currentlyReading"
-                                    })
-                                    .map((book) => {
-                                        return (
-                                            <Book
-                                                key={book.id}
-                                                authors={book.authors}
-                                                imageUrl={book.imageLinks.thumbnail}
-                                                title={book.title}
-                                            />
-                                        )
-                                    })}
-                            </ol>
+                            <BookList
+                                customClass={"books-grid"}
+                                books={books}
+                                type={CURRENTLY_READING}
+                            />
                         </div>
                     </div>
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Want to Read</h2>
                         <div className="bookshelf-books">
-                            <ol className="books-grid">
-                                {books
-                                    .filter((book) => {
-                                        return book.shelf === "wantToRead"
-                                    })
-                                    .map((book) => {
-                                        return (
-                                            <Book
-                                                key={book.id}
-                                                authors={book.authors}
-                                                imageUrl={book.imageLinks.thumbnail}
-                                                title={book.title}
-                                            />
-                                        )
-                                })}
-                            </ol>
+                            <BookList
+                                customClass={"books-grid"}
+                                books={books}
+                                type={WANT_TO_READ}
+                            />
                         </div>
                     </div>
                     <div className="bookshelf">
                         <h2 className="bookshelf-title">Read</h2>
                         <div className="bookshelf-books">
-                            <ol className="books-grid">
-                                {books
-                                    .filter((book) => {
-                                        return book.shelf === "read"
-                                    })
-                                    .map((book) => {
-                                        const imageUrl = book.imageLinks ? book.imageLinks.thumbnail : '';
-
-                                        return (
-                                            <Book
-                                                key={book.id}
-                                                authors={book.authors}
-                                                imageUrl={imageUrl}
-                                                title={book.title}
-                                            />
-                                        )
-                                })}
-                            </ol>
+                            <BookList
+                                customClass={"books-grid"}
+                                books={books}
+                                type={READ}
+                            />
                       </div>
                     </div>
                 </div>
