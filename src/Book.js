@@ -1,11 +1,20 @@
 import React from 'react'
+import Rating from './Rating';
 
-const Book = ({ authors = [], imageUrl = '', onShelfChange, shelf='none', title = '' }) => {
+const Book = ({
+    authors = [],
+    customClass = '',
+    imageUrl = '',
+    onShelfChange,
+    rating = 0,
+    shelf='none',
+    title = ''
+}) => {
     return (
         <li>
             <div className="book">
                 <div className="book-top">
-                    <div className="book-cover" style={{ width: 128, height: 188, backgroundImage: `url(${imageUrl})` }}></div>
+                    <div className={`book-cover ${customClass}`} style={{ width: 128, height: 188, backgroundImage: `url(${imageUrl})` }}></div>
                     <div className="book-shelf-changer">
                         <select defaultValue={shelf} onChange={onShelfChange}>
                             <option value="none" disabled>Move to...</option>
@@ -18,6 +27,7 @@ const Book = ({ authors = [], imageUrl = '', onShelfChange, shelf='none', title 
                 </div>
                 <div className="book-title">{title}</div>
                 <div className="book-authors">{authors.join()}</div>
+                <Rating stars={rating} />
             </div>
         </li>
     );

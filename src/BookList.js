@@ -16,6 +16,7 @@ const BookList = ({ books, customClass = '', onShelfChange, type}) => {
                             imageUrl={imageUrl}
                             title={book.title}
                             shelf={book.shelf}
+                            rating={book.averageRating}
                             onShelfChange={(event) => onShelfChange(book.id, event.target.value)}
                         />
                     )

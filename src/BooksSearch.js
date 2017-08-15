@@ -2,7 +2,13 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
 
-const BooksSearch = ({ books, filter, onFilterChange }) => {
+const BooksSearch = ({
+    books,
+    filter,
+    filteredBooks,
+    onFilterChange,
+    onShelfChange
+}) => {
     return (
         <div className="search-books">
             <div className="search-books-bar">
@@ -13,15 +19,21 @@ const BooksSearch = ({ books, filter, onFilterChange }) => {
             </div>
             <div className="search-books-results">
                 <ol className="books-grid">
-                    {books.map((book) => {
+                    {filteredBooks.map((book) => {
                         const imageUrl = book.imageLinks ? book.imageLinks.thumbnail : '';
+                        const bookInShelf = books.find((item) => { return item.id === book.id });
+                        const shelf = bookInShelf ? bookInShelf.shelf : 'none';
 
                         return (
                             <Book
                                 key={book.id}
                                 authors={book.authors}
+                                customClass={shelf !== 'none' ? 'book-in-shelf' : ''}
                                 imageUrl={imageUrl}
                                 title={book.title}
+                                shelf={shelf}
+                                rating={book.averageRating}
+                                onShelfChange={(event) => onShelfChange(book.id, event.target.value)}
                             />
                         )
                     })}

@@ -32,7 +32,7 @@ class BooksApp extends React.Component {
         if (filter) {
             BooksAPI.search(filter).then((books) => {
                 const filteredBooks = books.error ? [] : books;
-
+                console.log(filteredBooks);
                 if (this.state.filter) {
                     this.setState({
                         filteredBooks
@@ -53,16 +53,38 @@ class BooksApp extends React.Component {
                 const { books } = this.state;
                 const bookIndex = books.findIndex((book) => { return book.id === id; });
 
-                this.setState({
-                    books: [
-                        ...books.slice(0, bookIndex),
-                        {
-                            ...books[bookIndex],
-                            shelf: value
-                        },
-                        ...books.slice(bookIndex + 1)
-                    ]
-                })
+                if (bookIndex !== -1) {
+                    this.setState({
+                        books: [
+                            ...books.slice(0, bookIndex),
+                            {
+                                ...books[bookIndex],
+                                shelf: value
+                            },
+                            ...books.slice(bookIndex + 1)
+                        ]
+                    });
+                } else {
+                    const { filteredBooks } = this.state;
+                    const bookIndex = filteredBooks.findIndex((book) => { return book.id === id; });
+                    const bookUpdate = {
+                        ...filteredBooks[bookIndex],
+                        shelf: value
+                    };
+
+                    console.log(bookUpdate);
+                    this.setState({
+                        books: [
+                            ...this.state.books,
+                            bookUpdate
+                        ],
+                        filteredBooks: [
+                            ...filteredBooks.slice(0, bookIndex),
+                            bookUpdate,
+                            ...filteredBooks.slice(bookIndex + 1)
+                        ]
+                    });
+                }
             });
     }
 
@@ -80,7 +102,9 @@ class BooksApp extends React.Component {
                 <Route exact path="/search" render={() => (
                     <BooksSearch
                         filter={filter}
-                        books={filteredBooks}
+                        books={books}
+                        filteredBooks={filteredBooks}
+                        onShelfChange={this.handleShelfChange}
                         onFilterChange={(event) => this.handleFilterChange(event.target.value)}
                     />
                 )} />

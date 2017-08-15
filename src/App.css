@@ -172,3 +172,26 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+.book-in-shelf {
+  opacity: 0.4;
+}
+
+.star {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.star-on {
+  background: no-repeat url('./icons/stars.png') 0 -39px;
+}
+
+.star-off {
+  background: no-repeat url('./icons/stars.png') 0 -26px;
+}
+
+.star-half {
+  background: no-repeat url('./icons/stars.png') 0 -13px;
+}
