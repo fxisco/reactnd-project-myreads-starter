@@ -30,6 +30,7 @@ const BooksSearch = ({
                                 authors={book.authors}
                                 customClass={shelf !== 'none' ? 'book-in-shelf' : ''}
                                 imageUrl={imageUrl}
+                                pageCount={book.pageCount}
                                 title={book.title}
                                 shelf={shelf}
                                 rating={book.averageRating}

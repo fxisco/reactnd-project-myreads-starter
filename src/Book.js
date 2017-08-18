@@ -6,6 +6,7 @@ const Book = ({
     customClass = '',
     imageUrl = '',
     onShelfChange,
+    pageCount = 0,
     rating = 0,
     shelf='none',
     title = ''
@@ -28,6 +29,9 @@ const Book = ({
                 <div className="book-title">{title}</div>
                 <div className="book-authors">{authors.join()}</div>
                 <Rating stars={rating} />
+                {pageCount > 0 &&
+                    <span className="book-page-count">{`${pageCount} pages`}</span>
+                }
             </div>
         </li>
     );
