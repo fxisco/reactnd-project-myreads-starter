@@ -6,7 +6,9 @@ const BooksSearch = ({
     books,
     filter,
     filteredBooks,
+    sortBy = 'none',
     onFilterChange,
+    onOrderByChange,
     onShelfChange
 }) => {
     return (
@@ -16,6 +18,16 @@ const BooksSearch = ({
                 <div className="search-books-input-wrapper">
                     <input type="text" value={filter} onChange={onFilterChange} placeholder="Search by title or author"/>
                 </div>
+                {filteredBooks.length > 0 &&
+                    <div className="search-books-sort-wrapper">
+                        <select value={sortBy} onChange={onOrderByChange}>
+                            <option value="none" disabled>Sort by...</option>
+                            <option value="name">Name</option>
+                            <option value="page">Page</option>
+                            <option value="star">Stars</option>
+                        </select>
+                    </div>
+                }
             </div>
             <div className="search-books-results">
                 <ol className="books-grid">

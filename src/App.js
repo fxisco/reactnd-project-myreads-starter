@@ -15,7 +15,8 @@ class BooksApp extends React.Component {
     state = {
         books: [],
         filteredBooks: [],
-        filter: ''
+        filter: '',
+        sortBy: 'none'
     }
 
     componentDidMount() {
@@ -26,13 +27,14 @@ class BooksApp extends React.Component {
 
     handleFilterChange(filter) {
         this.setState({
-            filter
+            filter,
+            sortBy: 'none'
         });
 
         if (filter) {
             BooksAPI.search(filter).then((books) => {
                 const filteredBooks = books.error ? [] : books;
-                console.log(filteredBooks);
+
                 if (this.state.filter) {
                     this.setState({
                         filteredBooks
@@ -45,6 +47,71 @@ class BooksApp extends React.Component {
                 filteredBooks: []
             });
         }
+    }
+
+    orderByStars(a, b) {
+        const ratingA = a.averageRating ? a.averageRating : 0;
+        const ratingB = b.averageRating ? b.averageRating : 0;
+
+        if (ratingA > ratingB) {
+            return -1;
+        }
+
+        if (ratingA < ratingB) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    orderByName(a, b) {
+        if (a.title > b.title) {
+            return 1;
+        }
+
+        if (a.title < b.title) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    orderByPage(a, b) {
+        const pagesA = a.pageCount ? a.pageCount : 0;
+        const pagesB = b.pageCount ? b.pageCount : 0;
+
+        if (pagesA > pagesB) {
+            return -1;
+        }
+
+        if (pagesA < pagesB) {
+            return 1;
+        }
+
+        return 0;
+    }
+
+    handleOrderByChange(value) {
+        let orderedBooks = [];
+
+        if (value === 'star') {
+            orderedBooks = [
+                ...this.state.filteredBooks.sort(this.orderByStars)
+            ]
+        } else if (value === 'page') {
+            orderedBooks = [
+                ...this.state.filteredBooks.sort(this.orderByPage)
+            ]
+        } else {
+            orderedBooks = [
+                ...this.state.filteredBooks.sort(this.orderByName)
+            ]
+        }
+
+        this.setState({
+            filteredBooks: orderedBooks,
+            sortBy: value
+        });
     }
 
     handleShelfChange(id, value) {
@@ -72,7 +139,6 @@ class BooksApp extends React.Component {
                         shelf: value
                     };
 
-                    console.log(bookUpdate);
                     this.setState({
                         books: [
                             ...this.state.books,
@@ -89,7 +155,11 @@ class BooksApp extends React.Component {
     }
 
     render() {
-        const { books, filter, filteredBooks } = this.state;
+        const { books,
+            filter,
+            filteredBooks,
+            sortBy
+        } = this.state;
 
         return (
             <div className="app">
@@ -101,9 +171,11 @@ class BooksApp extends React.Component {
                 )} />
                 <Route exact path="/search" render={() => (
                     <BooksSearch
-                        filter={filter}
                         books={books}
+                        filter={filter}
                         filteredBooks={filteredBooks}
+                        sortBy={sortBy}
+                        onOrderByChange={(event) => this.handleOrderByChange(event.target.value)}
                         onShelfChange={this.handleShelfChange}
                         onFilterChange={(event) => this.handleFilterChange(event.target.value)}
                     />

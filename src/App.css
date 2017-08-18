@@ -74,9 +74,25 @@ body, .app {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
 }
 .search-books-input-wrapper {
-  flex: 1;
+  flex: 9;
   background: #e9e;
 }
+
+.search-books-sort-wrapper {
+  flex: 2;
+}
+
+.search-books-sort-wrapper select {
+  background: white;
+  border: none;
+  color: gray;
+  font-size: 1.25em;
+  height: 100%;
+  padding: 10px;
+  width: 100%;
+  -webkit-appearance: none;
+}
+
 .search-books-bar input {
   width: 100%;
   padding: 15px 10px;
