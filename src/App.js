@@ -1,11 +1,11 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
-import BooksCatalog from './BooksCatalog'
-import BooksSearch from './BooksSearch'
+import BooksCatalog from './components/BooksCatalog'
+import BooksSearch from './components/BooksSearch'
 import { SORT_TYPES } from './constants';
-import { orderByPage, orderByName, orderByStars } from './helpers';
-import './App.css'
+import * as BooksAPI from './helpers/BooksAPI'
+import { orderByPage, orderByName, orderByStars } from './helpers/index';
+import './styles/App.css'
 
 class BooksApp extends React.Component {
     constructor(props) {

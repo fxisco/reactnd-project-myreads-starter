@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import BookList from './BookList'
-import { SHELF_TYPES } from './constants'
+import { SHELF_TYPES } from '../constants'
 
 const BooksCatalog = ({ books, onShelfChange }) => {
     return (

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
-import { SORT_TYPES } from './constants';
+import { SORT_TYPES } from '../constants';
 
 const BooksSearch = ({
     books,
