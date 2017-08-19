@@ -4,6 +4,7 @@ import * as BooksAPI from './BooksAPI'
 import BooksCatalog from './BooksCatalog'
 import BooksSearch from './BooksSearch'
 import { SORT_TYPES } from './constants';
+import { orderByPage, orderByName, orderByStars } from './helpers';
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -50,62 +51,20 @@ class BooksApp extends React.Component {
         }
     }
 
-    orderByStars(a, b) {
-        const ratingA = a.averageRating ? a.averageRating : 0;
-        const ratingB = b.averageRating ? b.averageRating : 0;
-
-        if (ratingA > ratingB) {
-            return -1;
-        }
-
-        if (ratingA < ratingB) {
-            return 1;
-        }
-
-        return 0;
-    }
-
-    orderByName(a, b) {
-        if (a.title > b.title) {
-            return 1;
-        }
-
-        if (a.title < b.title) {
-            return -1;
-        }
-
-        return 0;
-    }
-
-    orderByPage(a, b) {
-        const pagesA = a.pageCount ? a.pageCount : 0;
-        const pagesB = b.pageCount ? b.pageCount : 0;
-
-        if (pagesA > pagesB) {
-            return -1;
-        }
-
-        if (pagesA < pagesB) {
-            return 1;
-        }
-
-        return 0;
-    }
-
     handleOrderByChange(value) {
         let orderedBooks = [];
 
         if (value === SORT_TYPES.STAR) {
             orderedBooks = [
-                ...this.state.filteredBooks.sort(this.orderByStars)
+                ...this.state.filteredBooks.sort(orderByStars)
             ]
         } else if (value === SORT_TYPES.PAGE) {
             orderedBooks = [
-                ...this.state.filteredBooks.sort(this.orderByPage)
+                ...this.state.filteredBooks.sort(orderByPage)
             ]
         } else {
             orderedBooks = [
-                ...this.state.filteredBooks.sort(this.orderByName)
+                ...this.state.filteredBooks.sort(orderByName)
             ]
         }
 
