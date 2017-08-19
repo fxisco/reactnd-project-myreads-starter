@@ -1,11 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import BookList from './BookList'
-import {
-    CURRENTLY_READING,
-    READ,
-    WANT_TO_READ
-} from './constants/values'
+import { SHELF_TYPES } from './constants'
 
 const BooksCatalog = ({ books, onShelfChange }) => {
     return (
@@ -21,7 +17,7 @@ const BooksCatalog = ({ books, onShelfChange }) => {
                             <BookList
                                 customClass={"books-grid"}
                                 books={books}
-                                type={CURRENTLY_READING}
+                                type={SHELF_TYPES.CURRENTLY_READING}
                                 onShelfChange={onShelfChange}
                             />
                         </div>
@@ -32,7 +28,7 @@ const BooksCatalog = ({ books, onShelfChange }) => {
                             <BookList
                                 customClass={"books-grid"}
                                 books={books}
-                                type={WANT_TO_READ}
+                                type={SHELF_TYPES.WANT_TO_READ}
                                 onShelfChange={onShelfChange}
                             />
                         </div>
@@ -43,7 +39,7 @@ const BooksCatalog = ({ books, onShelfChange }) => {
                             <BookList
                                 customClass={"books-grid"}
                                 books={books}
-                                type={READ}
+                                type={SHELF_TYPES.READ}
                                 onShelfChange={onShelfChange}
                             />
                       </div>

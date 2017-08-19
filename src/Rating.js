@@ -1,5 +1,5 @@
 import React from 'react'
-import { MAX_STARS } from './constants/values'
+import { MAX_STARS } from './constants'
 
 const Rating = ({
     stars = 0

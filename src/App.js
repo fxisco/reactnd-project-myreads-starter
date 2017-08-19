@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import BooksCatalog from './BooksCatalog'
 import BooksSearch from './BooksSearch'
+import { SORT_TYPES } from './constants';
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -16,7 +17,7 @@ class BooksApp extends React.Component {
         books: [],
         filteredBooks: [],
         filter: '',
-        sortBy: 'none'
+        sortBy: SORT_TYPES.NONE
     }
 
     componentDidMount() {
@@ -28,7 +29,7 @@ class BooksApp extends React.Component {
     handleFilterChange(filter) {
         this.setState({
             filter,
-            sortBy: 'none'
+            sortBy: SORT_TYPES.NONE
         });
 
         if (filter) {
@@ -94,11 +95,11 @@ class BooksApp extends React.Component {
     handleOrderByChange(value) {
         let orderedBooks = [];
 
-        if (value === 'star') {
+        if (value === SORT_TYPES.STAR) {
             orderedBooks = [
                 ...this.state.filteredBooks.sort(this.orderByStars)
             ]
-        } else if (value === 'page') {
+        } else if (value === SORT_TYPES.PAGE) {
             orderedBooks = [
                 ...this.state.filteredBooks.sort(this.orderByPage)
             ]

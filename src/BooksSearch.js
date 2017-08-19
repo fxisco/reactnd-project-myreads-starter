@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import Book from './Book'
+import { SORT_TYPES } from './constants';
 
 const BooksSearch = ({
     books,
     filter,
     filteredBooks,
-    sortBy = 'none',
+    sortBy = SORT_TYPES.NONE,
     onFilterChange,
     onOrderByChange,
     onShelfChange
@@ -21,10 +22,10 @@ const BooksSearch = ({
                 {filteredBooks.length > 0 &&
                     <div className="search-books-sort-wrapper">
                         <select value={sortBy} onChange={onOrderByChange}>
-                            <option value="none" disabled>Sort by...</option>
-                            <option value="name">Name</option>
-                            <option value="page">Page</option>
-                            <option value="star">Stars</option>
+                            <option value={SORT_TYPES.NONE} disabled>Sort by...</option>
+                            <option value={SORT_TYPES.NAME}>Name</option>
+                            <option value={SORT_TYPES.PAGE}>Page</option>
+                            <option value={SORT_TYPES.STAR}>Stars</option>
                         </select>
                     </div>
                 }
